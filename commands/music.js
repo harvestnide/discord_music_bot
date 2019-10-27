@@ -1,18 +1,22 @@
-const AudioStream = require('../services/ytdl-stream');
-const queue = require("../services/queue");
-
 module.exports = {
     name: 'music',
     description: 'Playing music at your voice channel!',
     args: true,
     guildOnly: true,
-    aliases: [],
-    usage: '[youtube-url]',
+    aliases: ['play'],
+    usage: '[youtube-url]/[play]/[stop]/[pause]',
     async execute(message, args) {
-        if(!args.lenght) queue.add(args[0], message.member.nickname);
+        let url = args[0];
+        console.log("Now playing: " + url);
         if (message.member.voiceChannel) {
-            AudioStream.set_voice(await message.member.voiceChannel.join());
-            AudioStream.play_handler();
+            const connection = await message.member.voiceChannel.join();
+            const ytdl = require('ytdl-core');
+            const dispatcher = connection.playStream(ytdl(url, {filter: 'audioonly'}),
+                { volume: 0.5 });
+            dispatcher.on('finish', () => {
+                message.member.voiceChannel.leave();
+                message.reply('Queue Finished!')
+            });
         } else {
             await message.reply('You need to join a voice channel first!');
         }
