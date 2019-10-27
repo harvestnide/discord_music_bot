@@ -3,7 +3,8 @@
   "version": "0.6.0",
   "description": "Just another implementation of discord.js, really nothing to see here",
   "author": "harvestnide",
-  "repository": "github.com/harvestnide/discord_music_bot",
+  "repository": "github:harvestnide/discord_music_bot",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node bot.js"
