@@ -1,4 +1,5 @@
 const AudioStream = require('../services/ytdl-stream');
+const queue = require("../services/queue");
 
 module.exports = {
     name: 'music',
@@ -7,18 +8,11 @@ module.exports = {
     guildOnly: true,
     aliases: [],
     usage: '[youtube-url]',
-    currentlyPlaying: false,
-    async execute(message, url) {
-        AudioStream.add_queue(url);
+    async execute(message, args) {
+        if(!args.lenght) queue.add(args[0], message.member.nickname);
         if (message.member.voiceChannel) {
-            const connection = await message.member.voiceChannel.join();
-            let dispatcher = AudioStream.play(connection);
-            this.currentlyPlaying = true;
-
-            dispatcher.on("end", () => {
-                dispatcher = AudioStream.next(connection);
-                this.currentlyPlaying = (dispatcher !== false);
-            });
+            AudioStream.set_voice(await message.member.voiceChannel.join());
+            AudioStream.play_handler();
         } else {
             await message.reply('You need to join a voice channel first!');
         }

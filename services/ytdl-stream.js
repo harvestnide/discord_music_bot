@@ -1,24 +1,35 @@
 const ytdl = require("ytdl-core");
+const queue = require("./queue");
 
 module.exports = {
-    queue: [],
-    async play(connection){
-        console.log("Now playing: " + this.queue[0]);
-        let audiostream = ytdl(this.queue[0], {filter: 'audioonly'});
-        let dispatcher = connection.playStream(audiostream, {volume: 0.5});
-        this.queue.shift();
-        return dispatcher;
+    audiostream: undefined,
+    dispatcher: undefined,
+    connection: undefined,
+    play() {
+        this.dispatcher = this.connection.playStream(this.audiostream, {volume: 0.5});
     },
-    async next(connection){
-        if(this.queue.lenght)
-            this.play(connection);
-        else
-            console.log("Queue Finished!");
-            return false;
+    play_handler(){
+        this.dispatcher.on("end", () => {
+            if(!queue.isEmpty())
+                this.audiostream = ytdl(queue.next(), {filter: 'audioonly'});
+                play();
+        });
     },
-    add_queue(url){
-        let q = this.queue;
-        q.push(url);
-        this.queue = q;
+    set_voice(connection){
+        this.connection = connection;
+    },
+    audio_forward(time) {
+
+    },
+    audio_rewind(time) {
+
+    },
+    audio_pause() {
+
+    },
+    audio_continue() {
+    },
+    audio_stop() {
+
     }
 };

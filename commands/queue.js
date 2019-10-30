@@ -1,4 +1,4 @@
-const AudioStream = require('../services/ytdl-stream');
+const queue = require('../services/queue');
 
 module.exports = {
     name: 'queue',
@@ -6,9 +6,9 @@ module.exports = {
     aliases: ['show_queue'],
     usage: '',
     execute(message, args){
-        let queue = AudioStream.queue;
+        let queue = queue.get();
         if(queue.length)
-            message.reply(`**Current queue:** ${queue.join(', ')}`);
+            message.reply(`**Current queue:\n** ${queue.join('\n')}`);
         else
             message.reply('Nothing plays now!');
     }
