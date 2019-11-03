@@ -1,5 +1,5 @@
 {
   "prefix": "!",
-  "discord_token": "NjM3MzMxNDM2Mjg1NzIyNjI0.XbMnQA.wPrEN1Lxe15xpz2ja_FH3TM6mVA",
-  "gapi_token": "AIzaSyCvSPSIQgCVpowJ68NIbzJJzpqTNp6xSdo"
+  "discord_token": "yours_discord_bot_token_goes_here",
+  "gapi_token": "yours_youtube_api_key_goes_here"
 }
