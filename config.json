@@ -1,5 +1,4 @@
 {
   "prefix": "!",
-  "discord_token": "yours_discord_bot_token_goes_here",
-  "gapi_token": "yours_youtube_api_key_goes_here"
+  "discord_token": "yours_discord_bot_token_goes_here"
 }
