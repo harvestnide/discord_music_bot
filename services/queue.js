@@ -1,17 +1,27 @@
 let queue = [];
+import { validateID } from "ytdl-core"
 
 module.exports = {
     playingNow: "",
-    add(url, username) {
+    add(urls, username) {
         let q = queue;
-        q.push(url);
+        let response = '';
+        for (let i = 0; i < urls.length; i++) {
+            let id = /.*(?:youtu.be|youtube.com)\/(?:watch\?v=|)(\w*)/g.exec(urls[i]); //ytdl.getVideoID
+            if (id !== null && id.length > 1 && validateID(id[1])) {
+                q.push(id[1]);
+            } else {
+                response += 'Link ' + urls[i] + ' is incorrect\n';
+            }
+        }
+        response += "Done!";
         queue = q;
+        return response;
     },
     remove(track_number) {
 
     },
     next() {
-        //todo: get title from yt and put it in playingNow
         return queue.pop();
     },
     shuffle() {

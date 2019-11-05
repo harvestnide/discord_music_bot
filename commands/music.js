@@ -4,17 +4,20 @@ const queue = require("../services/queue");
 module.exports = {
     name: 'music',
     description: 'Playing music at your voice channel!',
-    args: true,
+    args: false,
     guildOnly: true,
     aliases: [],
     usage: '[youtube-url]',
     async execute(message, args) {
-        if(!args.lenght) queue.add(args[0], message.member.nickname);
-        if (message.member.voiceChannel) {
-            AudioStream.set_voice(await message.member.voiceChannel.join());
-            AudioStream.play_handler();
-        } else {
-            await message.reply('You need to join a voice channel first!');
+        await message.reply(queue.add(args, message.member.nickname));
+        if(queue.isEmpty()) {await message.reply('Queue is empty! Use !help add or !help music');}
+        else {
+            if (message.member.voiceChannel) {
+                await AudioStream.set_voice(message.member.voiceChannel);
+                await AudioStream.play_handler();
+            } else {
+                await message.reply('You need to join a voice channel first!');
+            }
         }
     },
 };

@@ -1,10 +1,9 @@
 {
   "name": "hn_discord_bot",
-  "version": "0.1.0",
+  "version": "0.6.0",
   "description": "Just another implementation of discord.js, really nothing to see here",
   "author": "harvestnide",
-  "repository": "github:harvestnide/discord_music_bot",
-  "private": true,
+  "repository": "github.com/harvestnide/discord_music_bot",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node bot.js"
@@ -12,7 +11,6 @@
   "dependencies": {
     "discord.js": "^11.5.1",
     "ffmpeg": "^0.0.4",
-    "googleapis": "^44.0.0",
     "opusscript": "^0.0.7",
     "ytdl-core": "^1.0.0"
   }
