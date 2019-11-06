@@ -4,7 +4,7 @@ const ytdl = require("../services/ytdl-stream");
 
 module.exports = {
     name: 'queue',
-    description: 'Displaying current queue\ncurrently fucking broken',
+    description: 'Displaying current queue',
     aliases: ['show_queue', "showqueue", "show-queue"],
     usage: '',
     async execute(message, args) {
