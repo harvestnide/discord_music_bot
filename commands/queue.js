@@ -5,24 +5,24 @@ const ytdl = require("../services/ytdl-stream");
 module.exports = {
     name: 'queue',
     description: 'Displaying current queue\ncurrently fucking broken',
-    aliases: ['show_queue'],
+    aliases: ['show_queue', "showqueue", "show-queue"],
     usage: '',
-    execute(message, args) {
-        let queue = queue.get();
-        if (queue.length) {
-            message.channel.send(show(queue));
-        } else message.reply('Nothing plays now!');
+    async execute(message, args) {
+        let q = queue.get();
+        if (q.length) {
+            message.channel.send(await show(q));
+        } else await message.reply('Nothing plays now!');
     }
 };
 
-function show(queue) {
+async function show(q) {
     let Embed = new Discord.RichEmbed()
                 .setColor('#0099ff')
                 .setTitle('Current queue')
-                .addField('Now playing:', queue.playingNow)
+                .addField('Now playing:', queue.song_title)
                 .addBlankField();
-    for (let i = 0; i < queue.length; i++) {
-        Embed.addField(i+1+': ', ytdl.get_video_title(queue[i]));
+    for (let i = 0; i < q.length; i++) {
+        await Embed.addField(i+1+': ', await ytdl.get_video_title(q[i]));
     }
     return Embed;
 }

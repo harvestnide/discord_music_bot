@@ -1,6 +1,7 @@
 let queue = [];
 
 module.exports = {
+    song_title: "",
     add(urls, username) {
         const ytdl = require("ytdl-core");
         let q = queue;
