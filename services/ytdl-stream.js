@@ -41,6 +41,7 @@ module.exports = {
                 error => console.log(error)
             );
         }
+        queue.song_title = "Nothing playing now!";
     },
     async set_voice(_connection) {
         connection = await _connection.join();
@@ -52,7 +53,8 @@ module.exports = {
 
     },
     audio_pause() {
-        if (audiostream !== undefined) audiostream.pause();
+        if (audiostream !== undefined)
+            audiostream.pause();
     },
     audio_resume() {
         if (audiostream !== undefined && audiostream.isPaused()) audiostream.resume();

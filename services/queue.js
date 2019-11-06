@@ -1,7 +1,7 @@
 let queue = [];
 
 module.exports = {
-    song_title: "",
+    song_title: "Nothing playing now!",
     add(urls, username) {
         const ytdl = require("ytdl-core");
         let q = queue;
