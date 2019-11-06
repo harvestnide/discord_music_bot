@@ -1,7 +1,6 @@
 let queue = [];
 
 module.exports = {
-    playingNow: "",
     add(urls, username) {
         const ytdl = require("ytdl-core");
         let q = queue;
@@ -22,7 +21,7 @@ module.exports = {
 
     },
     next() {
-        return queue.pop();
+        return queue.shift();
     },
     shuffle() {
         for (let i = queue.length - 1; i > 0; i--) {
@@ -33,5 +32,8 @@ module.exports = {
         return (queue.length === 0);
     }, get() {
         return queue;
+    },
+    clear(){
+        queue = [];
     }
 };

@@ -40,19 +40,12 @@ client.on('message', message => {
         return message.reply('I can\'t execute that command inside DMs!');
     }
 
-/*    if (command.name === 'music') {
-        if (args[0].matchAll(/youtube/g) || args[0].matchAll(/youtu.be/g)) {
-            command.execute(message, args[0]).catch(error => {
-                console.error(error)
-            })
-        }
-    } else {*/
-        try {
-            command.execute(message, args);
-        } catch (error) {
-            console.error(error);
-            message.reply('there was an error trying to execute that command!');
-        }
+    try {
+        command.execute(message, args);
+    } catch (error) {
+        console.error(error);
+        message.reply('there was an error trying to execute that command!');
+    }
 
 });
 

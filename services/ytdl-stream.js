@@ -1,26 +1,42 @@
 const ytdl = require("ytdl-core");
 const queue = require("./queue");
 let connection = undefined, dispatcher = undefined, audiostream = undefined;
+let stop = false;
 
-async function play() {
-    audiostream = ytdl(queue.next(), {filter: 'audioonly'});
-    dispatcher = await connection.playStream(audiostream, {volume: 0.5})
-        .on("end", () => {
-            return 0;
-        });
+async function play(next) {
+    console.log('playing: ' + next);
+    return new Promise(function (resolve, reject) {
+        try {
+            audiostream = ytdl(next, {filter: 'audioonly'});
+            dispatcher = connection.playStream(audiostream, {volume: 0.5})
+                .on("end", () => {
+                    audiostream = undefined;
+                    resolve(0);
+                });
+        } catch (e) {
+            reject(e);
+        }
+    });
 }
 
 module.exports = {
+    async play_handler() {
+        if(connection === undefined) console.error("play_handler: No voice channel!");
+        if(audiostream !== undefined) return;
+        let next = queue.next();
+        stop = true;
+        while(!queue.isEmpty() || !stop) {
+            await play(next).then(
+                result => next = queue.next(),
+                error => console.log(error)
+            );
+        }
+    },
     async get_video_title(url) {
         const info = await ytdl.getInfo(url);
         const songtitle = info.title;
         console.log(songtitle);
         return songtitle;
-    },
-    async play_handler() {
-        for (let i = 0; i < queue.get().length; i) {
-            await play();
-        }
     },
     async set_voice(_connection) {
         connection = await _connection.join();
@@ -32,11 +48,12 @@ module.exports = {
 
     },
     audio_pause() {
-
+        if(audiostream !== undefined) audiostream.pause();
     },
-    audio_continue() {
+    audio_resume() {
+        if(audiostream !== undefined && audiostream.isPaused()) audiostream.resume();
     },
     audio_stop() {
-
+        
     }
 };
