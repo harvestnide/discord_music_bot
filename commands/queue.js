@@ -7,22 +7,22 @@ module.exports = {
     description: 'Displaying current queue',
     aliases: ['show_queue', "showqueue", "show-queue"],
     usage: '',
-    async execute(message, args) {
-        let q = queue.get();
+    execute(message, args) {
+        let [q, meta] = queue.get();
         if (q.length) {
-            message.channel.send(await show(q));
-        } else await message.reply('Nothing plays now!');
+            message.channel.send(show(q, meta));
+        } else message.reply('Nothing plays now!');
     }
 };
 
-async function show(q) {
+function show(q, meta) {
     let Embed = new Discord.RichEmbed()
-                .setColor('#0099ff')
-                .setTitle('Current queue')
-                .addField('Now playing:', queue.song_title)
-                .addBlankField();
+        .setColor('#ffa500')
+        .setTitle('Current queue')
+        .addField('Now playing:', queue.song_title)
+        .addBlankField();
     for (let i = 0; i < q.length; i++) {
-        await Embed.addField(i+1+': ', await ytdl.get_video_title(q[i]));
+        Embed.addField(i + 1 + ': ', meta[i]);
     }
     return Embed;
 }
