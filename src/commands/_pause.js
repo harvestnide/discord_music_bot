@@ -1,11 +1,11 @@
 const ytdl = require('../services/ytdl-stream');
 
 module.exports = {
-    name: 'resume',
-    description: 'resume current audiostream',
+    name: 'pause',
+    description: 'pause current audiostream\nNot working correctly now', //todo
     aliases: [],
     usage: '',
     execute(message, args) {
-        ytdl.audio_resume();
+        ytdl.audio_pause();
     }
 };

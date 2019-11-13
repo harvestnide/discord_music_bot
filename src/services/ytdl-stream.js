@@ -1,5 +1,6 @@
 const ytdl = require("ytdl-core");
 const queue = require("./queue");
+const moment = require("moment");
 let connection = undefined, dispatcher = undefined, audiostream = undefined;
 let stop = false;
 
@@ -9,14 +10,16 @@ async function video_title(url) {
 }
 
 async function play(next, title) {
-    return new Promise(function (resolve, reject) {
+    return await new Promise(function (resolve, reject) {
         try {
+            console.log(moment().format('HH:mm:ss') + ": Playing: " + next + " - " + title);
             audiostream = ytdl(next, {filter: 'audioonly'});
             queue.song_title = title;
             dispatcher = connection.playStream(audiostream, {volume: 0.5})
                 .on("end", () => {
                     audiostream = undefined;
                     resolve(0);
+                    console.log(moment().format('HH:mm:ss') + ": Finished: " + next + " - " + title)
                 });
         } catch (e) {
             reject(e);
@@ -31,15 +34,18 @@ module.exports = {
     async play_handler() {
         if (connection === undefined) console.error("play_handler: No voice channel!");
         if (audiostream !== undefined) return;
+        queue.playing = true;
         let [next, title] = queue.next();
         stop = false;
-        while (!queue.isEmpty()) {
-            await play(next, title).then(
+        while (next !== undefined) {
+            const p = await play(next, title).then(
                 result => [next, title] = queue.next(),
-                error => console.log(error)
+                error => console.log(moment().format('HH:mm:ss') + ": " + error)
             );
         }
         queue.song_title = "Nothing playing now!";
+        queue.playing = false;
+        console.log(moment().format('HH:mm:ss') + ": Queue finished")
     },
     async set_voice(_connection) {
         connection = await _connection.join();
