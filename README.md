@@ -15,7 +15,7 @@ In development:
 
 ### Using node:
 ```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/harvestnide/discord_music_bot/master/setup_node.sh)
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/harvestnide/discord_music_bot/master/setup_node.sh)"
 ```
 
 btw sorry yarn users, i have litteraly no idea how to use yarn, so only npm autodeploy for now
