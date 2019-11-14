@@ -14,11 +14,13 @@ module.exports = {
 };
 
 function show(q) {
-    let current = queue.get_current() || "Nothing";
+    let current = queue.get_current();
+    if (current !== undefined) current = current.title + " by user " + current.user;
+    else current = "Nothing";
     let Embed = new Discord.RichEmbed()
         .setColor('#ffa500')
         .setTitle('Current queue')
-        .addField('Now playing:', current.title + " by user " + current.user)
+        .addField('Now playing:', current)
         .addBlankField();
     for (let i = 0; i < q.length; i++) {
         Embed.addField(i + 1 + ': ', q[i].title + " by user " + q[i].user);

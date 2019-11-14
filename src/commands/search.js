@@ -8,6 +8,6 @@ module.exports = {
     aliases: [],
     usage: '[query]',
     execute(message, args) {
-        search.search(args.join(' '), message.author.username);
+        message.reply(search.search(args.join(' '), message.author.username));
     },
 };
