@@ -4,6 +4,7 @@ Just another discord.js/ytdl bot for discord. Nothing fancy
 ## Functions
 - Playing music from youtube in ur voice channel. You can add it from youtube url or using inline youtube search.
 - Has playback queue, but sometimes it not stable and hungry for ur RAM
+
 In development:
 - Frontend
 - Audiofilters
