@@ -4,13 +4,17 @@ Just another discord.js/ytdl bot for discord. Nothing fancy
 ## Autosetup
 
 ### Using node:
->sh -c "$(curl -fsSL https://raw.githubusercontent.com/harvestnide/discord_music_bot/master/setup_node.sh)"
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/harvestnide/discord_music_bot/master/setup_node.sh)
+```
 
 btw sorry yarn users, i have litteraly no idea how to use yarn, so only npm autodeploy for now
 ### Using docker:
->sh -c "$(curl -fsSL https://raw.githubusercontent.com/harvestnide/discord_music_bot/master/setup_docker.sh)"
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/harvestnide/discord_music_bot/master/setup_docker.sh)"
+```
 
-** not properly tested yet. If it's not working - you can pull from harvestnide/discord_bot, but you need to add /src/config.json by yourself
+__Not properly tested yet. If it's not working - you can pull from__ `harvestnide/discord_bot`, __but you need to add /src/config.json by yourself__
 
 
 ## Manual setup ##
