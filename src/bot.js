@@ -47,7 +47,7 @@ client.on('message', message => {
     }
 
     try {
-        console.log(moment().format('HH:mm:ss') + ":" + message.author.username + " executing: !" + command.name + " " + args.join(" "));
+        console.log(moment().format('HH:mm:ss') + ":" + message.author.username + " executing: " + prefix + command.name + " " + args.join(" "));
         command.execute(message, args);
     } catch (error) {
         console.error(error);

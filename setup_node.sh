@@ -12,14 +12,14 @@ cd discord_music_bot || return 2
 echo "Installing dependencies..."
 npm install
 touch src/config.json
-echo -ne "Input command prefix [!]:"
+echo "Input command prefix [!]:"
 read prefix
 if [ -z "$prefix" ]; then
   prefix="!"
 fi
 isCorrect=1
 until [ "$isCorrect" == 0 ]; do
-  echo -ne "Input your bot token [undefined]: "
+  echo "Input your bot token [undefined]: "
   read token
   echo "checking your token"
   isCorrect=$(node token_check.js "$token")

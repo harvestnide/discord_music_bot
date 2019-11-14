@@ -16,7 +16,8 @@ module.exports = {
 };
 
 function show(q, meta) {
-    let current = queue.song_title || "Nothing!";
+    let current = "Nothing!";
+    if(queue.isPlaying()) current = queue.next()[1];
     let Embed = new Discord.RichEmbed()
         .setColor('#ffa500')
         .setTitle('Current queue')
