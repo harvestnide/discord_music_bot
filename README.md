@@ -1,5 +1,6 @@
 # HN's discord music bot (v. 0.8.5)
 Just another discord.js/ytdl bot for discord. Nothing fancy
+Still pretty much in development, so feel free to open issues of any sort.
 
 ## Functions
 - Playing music from youtube in ur voice channel. You can add it from youtube url or using inline youtube search.
@@ -28,8 +29,9 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/harvestnide/discord_music_
 
 __Not properly tested yet. If it's not working - you can pull from__ `harvestnide/discord_bot`, __but you need to add /src/config.json by yourself.__
 
-__Also, you can clone repo and build it using included Dockerfile__ :rainbow:
+__Also, you can clone repo and build it by yourself using included Dockerfile__ :rainbow:
 
+__And also, if your user wasn't configured to docker workgroup - you need to run this script as root. I really don't appreciate it, take your time and configure it right before launching. I double tested it, but I'm not sure, that it's completlly safe and you shoudn't eather__
 
 ## Manual setup ##
 Clone project, edit scr/config.json, install dependencies. Dockerfile and pakage.json are included
@@ -40,4 +42,5 @@ config.json format:
 ```
 
 ##### Related stuff #####
-- [Howto create bot and get token](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token)
+- [Howto: create bot and get token](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token)
+- [Howto: proper docker config](https://docs.docker.com/install/linux/linux-postinstall/)
