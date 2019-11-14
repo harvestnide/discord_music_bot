@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
-
 const client = new Discord.Client();
+
+console.log(process.argv[2]);
 
 client.once('ready', () => {
     console.log("Token is OK!");

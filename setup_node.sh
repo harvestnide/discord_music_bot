@@ -18,14 +18,14 @@ if [ -z "$prefix" ]; then
   prefix="!"
 fi
 isCorrect=false
-until [ $isCorrect ]; do
+until [ ! $isCorrect ]; do
   echo -ne "Input your bot token [undefined]: "
   read token
   echo "checking your token"
   isCorrect="node token_check.js $token"
 done
 cat <<EOF >src/config.json
-{"prefix": "${prefix}", "discord_token": "${token}"}
+{"prefix": "${prefix}", "discord_token": "${token}"
 EOF
 if hash ffmpeg 2>/dev/null; then
   echo "Done!"
