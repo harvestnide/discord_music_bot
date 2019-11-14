@@ -1,9 +1,10 @@
 {
   "name": "hn_discord_bot",
-  "version": "0.8.0",
+  "version": "0.8.5",
   "description": "Just another implementation of discord.js, really nothing to see here",
   "author": "harvestnide",
   "repository": "github.com/harvestnide/discord_music_bot",
+  "licence": "ISC",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/bot.js"
