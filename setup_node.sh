@@ -12,5 +12,11 @@ cat << EOF > src/config.json
 EOF
 echo "Installing dependencies..."
 npm install
-echo "Done!"
+if hash ffmpeg 2>/dev/null; then
+	echo "Done!"
+else
+	echo "You dont have ffmpeg installed, but you need it to stream audio"
+  echo "Install it, than - "
+fi
+
 echo "Use cd discord_music_bot Then npm start to use ur bot!"
