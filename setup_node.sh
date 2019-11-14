@@ -18,7 +18,7 @@ if [ -z "$prefix" ]; then
   prefix="!"
 fi
 isCorrect=1
-until [ ! "$isCorrect" ]; do
+until [ "$isCorrect" == 0 ]; do
   echo -ne "Input your bot token [undefined]: "
   read token
   echo "checking your token"

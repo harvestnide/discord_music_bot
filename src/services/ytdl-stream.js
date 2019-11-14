@@ -14,7 +14,6 @@ async function play(next, title) {
         try {
             console.log(moment().format('HH:mm:ss') + ": Playing: " + next + " - " + title);
             audiostream = ytdl(next, {filter: 'audioonly'});
-            queue.song_title = title;
             dispatcher = connection.playStream(audiostream, {volume: 0.5})
                 .on("end", () => {
                     audiostream = undefined;
@@ -34,17 +33,14 @@ module.exports = {
     async play_handler() {
         if (connection === undefined) console.error("play_handler: No voice channel!");
         if (audiostream !== undefined) return;
-        queue.playing = true;
         let [next, title] = queue.next();
         stop = false;
         while (next !== undefined) {
             const p = await play(next, title).then(
-                result => [next, title] = queue.next(),
-                error => console.log(moment().format('HH:mm:ss') + ": " + error)
+                result => {queue.remove0(); [next, title] = queue.next()},
+                error => {console.log(moment().format('HH:mm:ss') + ": " + error)}
             );
         }
-        queue.song_title = "Nothing playing now!";
-        queue.playing = false;
         console.log(moment().format('HH:mm:ss') + ": Queue finished")
     },
     async set_voice(_connection) {
