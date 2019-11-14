@@ -26,7 +26,9 @@ btw sorry yarn users, i have litteraly no idea how to use yarn, so only npm auto
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/harvestnide/discord_music_bot/master/setup_docker.sh)"
 ```
 
-__Not properly tested yet. If it's not working - you can pull from__ `harvestnide/discord_bot`, __but you need to add /src/config.json by yourself. Also, you can clone repo and build it usign included Dockerfile__ :rainbow:
+__Not properly tested yet. If it's not working - you can pull from__ `harvestnide/discord_bot`, __but you need to add /src/config.json by yourself.__
+
+__Also, you can clone repo and build it using included Dockerfile__ :rainbow:
 
 
 ## Manual setup ##
