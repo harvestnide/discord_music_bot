@@ -63,5 +63,8 @@ module.exports = {
 
     }, audio_skip() {
         dispatcher.end();
+    },
+    get_audiostream(){
+        return audiostream;
     }
 };

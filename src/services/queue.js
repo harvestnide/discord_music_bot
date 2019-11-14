@@ -2,12 +2,12 @@ const moment = require("moment");
 
 let queue = [];
 let metadata = [];
+const stream = require("./ytdl-stream");
 
 module.exports = {
     async add(urls, username) {
         const ytdl = require("ytdl-core");
         let response = '';
-        const stream = require("./ytdl-stream");
         for (let i = 0; i < urls.length; i++) {
             let id = /.*(?:youtu.be|youtube.com)\/(?:watch\?v=|)(\w*)/g.exec(urls[i]); //ytdl.getVideoID
             if (id !== null && id.length > 1 && ytdl.validateID(id[1])) {
@@ -38,7 +38,11 @@ module.exports = {
         }
     }, isEmpty() {
         return (queue.length === 0);
-    }, get() {
+    },
+    isPlaying(){
+        return (stream.get_audiostream() !== undefined);
+    },
+    get() {
         return [queue, metadata];
     },
     clear() {
