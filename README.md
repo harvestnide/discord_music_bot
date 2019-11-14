@@ -31,4 +31,4 @@ __Not properly tested yet. If it's not working - you can pull from__ `harvestnid
 Clone project, edit scr/config.json, install dependencies. Dockerfile and pakage.json are included
 
 ##### Related stuff #####
-- [Howto get bot token](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token)
+- [Howto create bot and get token](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token)
