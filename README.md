@@ -4,10 +4,10 @@ Just another discord.js/ytdl bot for discord. Nothing fancy
 ## Autosetup
 
 ### Using node:
->sh -c "$(curl -fsSL https://raw.githubusercontent.com/harvestnide/discord_music_bot/origin/setup_node.sh)"
+>sh -c "$(curl -fsSL https://raw.githubusercontent.com/harvestnide/discord_music_bot/master/setup_node.sh)"
 
 ### Using docker:
->sh -c "$(curl -fsSL https://raw.githubusercontent.com/harvestnide/discord_music_bot/origin/setup_docker.sh)"
+>sh -c "$(curl -fsSL https://raw.githubusercontent.com/harvestnide/discord_music_bot/master/setup_docker.sh)"
 ** not properly tested yet
 
 ## Manual setup ##
