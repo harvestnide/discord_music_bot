@@ -11,10 +11,10 @@ client.once('ready', () => {
         }
     );
     console.log(query);
-    return true;
+    return 0;
 });
 
 client.login(process.argv[2]).catch(e => {
     console.log(e);
-    return false;
+    return 1;
 });

@@ -17,12 +17,12 @@ read prefix
 if [ -z "$prefix" ]; then
   prefix="!"
 fi
-isCorrect=false
-until [ ! $isCorrect ]; do
+isCorrect=1
+until [ ! "$isCorrect" ]; do
   echo -ne "Input your bot token [undefined]: "
   read token
   echo "checking your token"
-  isCorrect="node token_check.js $token"
+  isCorrect=$(node token_check.js "$token")
 done
 cat <<EOF >src/config.json
 {"prefix": "${prefix}", "discord_token": "${token}"
