@@ -12,7 +12,7 @@ In development:
 - Playback control (play/pause/rewind/etc)
 
 
-DM [command prefix]help to your bot to learn more
+DM `[command prefix]help` to your bot to learn more
 ## Autosetup
 
 ### Using node:
