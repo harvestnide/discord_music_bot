@@ -11,7 +11,7 @@ Just another discord.js/ytdl bot for discord. Nothing fancy
 ** not properly tested yet
 
 ## Manual setup ##
-Clone project, edit scr/config.json, install dependencies, Dockerfile and pakage.json are included
+Clone project, edit scr/config.json, install dependencies. Dockerfile and pakage.json are included
 
 ##### Related stuff #####
 - [Howto get bot token](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token)
