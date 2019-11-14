@@ -27,3 +27,4 @@ else
 fi
 
 echo "Use cd discord_music_bot Then npm start to use ur bot!"
+echo "DM ${prefix}help to ur bot to observe it full potential!"
