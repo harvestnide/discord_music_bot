@@ -1,4 +1,11 @@
 #!/bin/bash
+if hash npm 2>/dev/null; then
+	echo "Npm installed and working correctly"
+else
+	echo "Dude, u selected node installation, but u dont have one. Whats wrong with you?"
+	echo "Install npm and get back here"
+  	exit
+fi
 echo "Cloning project from github!"
 git clone https://github.com/harvestnide/discord_music_bot.git
 cd discord_music_bot
@@ -16,7 +23,7 @@ if hash ffmpeg 2>/dev/null; then
 	echo "Done!"
 else
 	echo "You dont have ffmpeg installed, but you need it to stream audio"
-  echo "Install it, than - "
+  	echo "Install it, than - "
 fi
 
 echo "Use cd discord_music_bot Then npm start to use ur bot!"
