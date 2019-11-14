@@ -1,4 +1,4 @@
-# HN's discord music bot (v. 0.8.5)
+# HN's discord music bot (v. 0.9)
 Just another discord.js/ytdl bot for discord. Nothing fancy
 
 Still pretty much in development, so feel free to open issues of any sort.

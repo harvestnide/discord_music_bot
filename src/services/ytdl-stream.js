@@ -1,24 +1,22 @@
 const ytdl = require("ytdl-core");
-const queue = require("./queue");
 const moment = require("moment");
 let connection = undefined, dispatcher = undefined, audiostream = undefined;
 let stop = false;
 
 async function video_title(url) {
-     const info =  await ytdl.getInfo(url);
-     return info.title;
+    const info = await ytdl.getInfo(url);
+    return info.title;
 }
 
-async function play(next, title) {
+async function play(next) {
     return await new Promise(function (resolve, reject) {
         try {
-            console.log(moment().format('HH:mm:ss') + ": Playing: " + next + " - " + title);
-            audiostream = ytdl(next, {filter: 'audioonly'});
-            dispatcher = connection.playStream(audiostream, {volume: 0.5})
-                .on("end", () => {
+            console.log(moment().format('HH:mm:ss') + ": Playing: " + next.id + " - " + next.title + " by user " + next.user);
+            audiostream = ytdl(next.id, {filter: 'audioonly'});
+            dispatcher = connection.playStream(audiostream, {volume: 0.5}).on("end", () => {
                     audiostream = undefined;
                     resolve(0);
-                    console.log(moment().format('HH:mm:ss') + ": Finished: " + next + " - " + title)
+                console.log(moment().format('HH:mm:ss') + ": Finished: " + next.id + " - " + next.title)
                 });
         } catch (e) {
             reject(e);
@@ -27,18 +25,23 @@ async function play(next, title) {
 }
 
 module.exports = {
-    async get_video_title(url){
-      return await video_title(url);
+    async get_video_title(url) {
+        return await video_title(url);
     },
     async play_handler() {
+        const queue = require("./queue");
         if (connection === undefined) console.error("play_handler: No voice channel!");
         if (audiostream !== undefined) return;
-        let [next, title] = queue.next();
+        let next = queue.next();
         stop = false;
         while (next !== undefined) {
-            const p = await play(next, title).then(
-                result => {queue.remove0(); [next, title] = queue.next()},
-                error => {console.log(moment().format('HH:mm:ss') + ": " + error)}
+            const p = await play(next).then(
+                result => {
+                    next = queue.next()
+                },
+                error => {
+                    console.log(moment().format('HH:mm:ss') + ": " + error)
+                }
             );
         }
         console.log(moment().format('HH:mm:ss') + ": Queue finished")
@@ -59,12 +62,7 @@ module.exports = {
     audio_resume() {
         if (audiostream !== undefined && audiostream.isPaused()) audiostream.resume();
     },
-    audio_stop() {
-
-    }, audio_skip() {
+    audio_skip() {
         dispatcher.end();
-    },
-    get_audiostream(){
-        return audiostream;
     }
 };

@@ -1,52 +1,53 @@
 const moment = require("moment");
 
+let current = undefined;
 let queue = [];
-let metadata = [];
 const stream = require("./ytdl-stream");
+
+async function verifyid(url, username) {
+    const ytdl = require("ytdl-core");
+    if (url !== null && url.length > 1 && ytdl.validateID(url[1])) {
+        stream.get_video_title(url[1]).then(result => {
+            const n = {id: url[1], title: result, user: username};
+            queue.push(n);
+            console.log(moment().format('HH:mm:ss') + ": Added: " + url[1] + " - " + result);
+            return "Added: " + result;
+        });
+    } else {
+        return 'Link ' + url.join(' ') + ' is incorrect\n';
+    }
+}
 
 module.exports = {
     async add(urls, username) {
-        const ytdl = require("ytdl-core");
-        let response = '';
+        let query = '';
         for (let i = 0; i < urls.length; i++) {
-            let id = /.*(?:youtu.be|youtube.com)\/(?:watch\?v=|)(\w*)/g.exec(urls[i]); //ytdl.getVideoID
-            if (id !== null && id.length > 1 && ytdl.validateID(id[1])) {
-                queue.push(id[1]);
-                stream.get_video_title(id[1]).then(result => {
-                    metadata.push(result + ' req by ' + username);
-                    response += "Added: " + result;
-                    console.log(moment().format('HH:mm:ss') + ": Added: " + id[1] + " - " + result);
-                });
-            } else {
-                response += 'Link ' + urls[i] + ' is incorrect\n';
-                console.log(moment().format('HH:mm:ss') + ": Adding error, not a youtube link:" + urls[i]);
-            }
+            let id = /.*(?:youtu.be|youtube.com)\/(?:watch\?v=|)(\w*)/g.exec(urls[i]);
+            verifyid(id, username).then(result => query += result);
         }
-        return response;
+        return query;
     },
     next() {
-        return [queue[0], metadata[0]];
-    },
-    remove0(){
-        queue.shift();
-        metadata.shift();
+        current = queue.shift();
+        return current;
     },
     shuffle() {
         for (let i = queue.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [queue[i], queue[j]] = [queue[j], queue[i]];
         }
-    }, isEmpty() {
-        return (queue.length === 0);
-    },
-    isPlaying(){
-        return (stream.get_audiostream() !== undefined);
-    },
-    get() {
-        return [queue, metadata];
     },
     clear() {
         queue = [];
-        metadata = [];
+        stream.audio_skip();
+    },
+    isEmpty() {
+        return (queue.length === 0)
+    },
+    get() {
+        return queue
+    },
+    get_current() {
+        return current
     }
 };
