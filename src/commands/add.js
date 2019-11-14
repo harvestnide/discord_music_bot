@@ -5,6 +5,8 @@ module.exports = {
     usage: 'one or multiple youtube links, divided by whitespaces',
     execute(message, args) {
         const queue = require("../services/queue");
-        message.reply(queue.add(args, message.author.username));
+        queue.add(args, message.author.username).then(result => {
+            if (result !== '') message.reply(result);
+        });
     }
 };

@@ -9,7 +9,9 @@ module.exports = {
     aliases: [],
     usage: '[youtube-url]',
     async execute(message, args) {
-        await message.reply(queue.add(args, message.author.username));
+        queue.add(args, message.author.username).then(result => {
+            if (result !== '') message.reply(result);
+        });
         if (message.member.voiceChannel) {
             await AudioStream.set_voice(message.member.voiceChannel);
             await AudioStream.play_handler();
