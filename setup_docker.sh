@@ -1,16 +1,14 @@
 #!/bin/bash
-echo "Pulling image from dockerhub!"
-docker image pull harvestnide/discord_bot
-touch config.json
+echo "Cloning into discord_music_bot"
+git clone https://github.com/harvestnide/discord_music_bot.git
+touch src/config.json
+cd discord_music_bot
 echo -ne "Input command prefix [!]: "
 read prefix
 echo -ne "Input your bot token [undefined]: "
 read token
-cat << EOF > config.json
+cat << EOF > src/config.json
 {"prefix": "${prefix}", "discord_token": "${token}"}
 EOF
-echo "copying config into docker image"
-docker exec -i discord_bot sh -c 'cat > /src/config.json' < config.json
-rm config.json
-echo "Done!"
-echo "Start ur bot with docker run discord_bot!"
+echo "Building docker image"
+docker build -f Dockerfile -t discord_bot .
