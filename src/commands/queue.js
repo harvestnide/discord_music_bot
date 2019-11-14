@@ -1,6 +1,5 @@
 const queue = require('../services/queue');
 const Discord = require('discord.js');
-const ytdl = require("../services/ytdl-stream");
 
 module.exports = {
     name: 'queue',
@@ -8,23 +7,21 @@ module.exports = {
     aliases: ['show_queue', "showqueue", "show-queue"],
     usage: '',
     execute(message, args) {
-        let [q, meta] = queue.get();
-        if (!queue.isEmpty()) {
-            message.channel.send(show(q, meta));
+        if (!queue.isEmpty() || queue.get_current() !== undefined) {
+            message.channel.send(show(queue.get()));
         } else message.reply('Nothing plays now!');
     }
 };
 
-function show(q, meta) {
-    let current = "Nothing!";
-    if(queue.isPlaying()) current = queue.next()[1];
+function show(q) {
+    let current = queue.get_current() || "Nothing";
     let Embed = new Discord.RichEmbed()
         .setColor('#ffa500')
         .setTitle('Current queue')
-        .addField('Now playing:', current)
+        .addField('Now playing:', current.title + " by user " + current.user)
         .addBlankField();
     for (let i = 0; i < q.length; i++) {
-        Embed.addField(i + 1 + ': ', meta[i]);
+        Embed.addField(i + 1 + ': ', q[i].title + " by user " + q[i].user);
     }
     return Embed;
 }

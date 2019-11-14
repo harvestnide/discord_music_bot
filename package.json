@@ -1,6 +1,6 @@
 {
   "name": "hn_discord_bot",
-  "version": "0.8.5",
+  "version": "0.9",
   "description": "Just another implementation of discord.js, really nothing to see here",
   "author": "harvestnide",
   "repository": "github.com/harvestnide/discord_music_bot",

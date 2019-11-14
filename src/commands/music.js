@@ -10,14 +10,11 @@ module.exports = {
     usage: '[youtube-url]',
     async execute(message, args) {
         await message.reply(queue.add(args, message.author.username));
-        //if(queue.isEmpty()) {await message.reply('Queue is empty! Use !help add or !help music');}
-        //else {
-            if (message.member.voiceChannel) {
-                await AudioStream.set_voice(message.member.voiceChannel);
-                await AudioStream.play_handler();
-            } else {
-                await message.reply('You need to join a voice channel first!');
-            }
-        //}
+        if (message.member.voiceChannel) {
+            await AudioStream.set_voice(message.member.voiceChannel);
+            await AudioStream.play_handler();
+        } else {
+            await message.reply('You need to join a voice channel first!');
+        }
     },
 };
